@@ -1,0 +1,18 @@
+img{
+  max-width: 100%;
+}
+
+footer{
+  .container{
+    max-width: 800px;
+  }
+}
+
+pre{
+  white-space: pre;
+}
+
+img.main-example{
+  min-height: 40vh;
+  object-fit: cover;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html itemscope itemtype="//schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="Embed tweets without compromising your users' privacy and your site's performance." />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alternative Tweet Embeds</title>
+  <meta property="og:title" content="Alternative Tweet Embeds" />
+  <meta property="og:description" content="Embed tweets without compromising your users' privacy and your site's performance." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://cdn.glitch.com/4705ea0a-1577-4255-a4d5-04b4e49626a2%2Fthumbnail.png" /> 
+  <meta property="twitter:image:src" content="https://cdn.glitch.com/4705ea0a-1577-4255-a4d5-04b4e49626a2%2Fthumbnail.png" /> 
+  <meta name="twitter:title" content="Alternative Tweet Embeds">
+  <meta name="twitter:description" content="Embed tweets without compromising your users' privacy and your site's performance.">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@fourtonfish" />
+  <meta name="twitter:domain" content="https://{{project_name}}.glitch.me/" />
+  <!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->  
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://{{project_name}}.glitch.me/libs/bootstrap/bootstrap.min.css" type="text/css">
+  <link href="https://{{project_name}}.glitch.me/libs/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://{{project_name}}.glitch.me/css/page-styles.css" type="text/css">
+  <link href="https://{{project_name}}.glitch.me/css/page-styles.css" rel="stylesheet" type="text/css">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://{{project_name}}.glitch.me/css/styles-bs.css" type="text/css">
+  <link href="https://{{project_name}}.glitch.me/css/styles-bs.css" rel="stylesheet" type="text/css">
+
+  <!-- TODO: Use favicon-generator.org to create favicons. -->
+  <!--
+  <link rel="shortcut icon" href="TODO:URL"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="60x60" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="72x72" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="76x76" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="114x114" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="120x120" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="144x144" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="152x152" href="TODO:URL">
+  <link rel="apple-touch-icon" sizes="180x180" href="TODO:URL">
+  <link rel="icon" type="image/png" sizes="192x192"  href="TODO:URL">
+  <link rel="icon" type="image/png" sizes="32x32" href="TODO:URL">
+  <link rel="icon" type="image/png" sizes="96x96" href="TODO:URL">
+  <link rel="icon" type="image/png" sizes="16x16" href="TODO:URL">
+  -->
+  <!--
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  -->
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Roboto|Source+Code+Pro&display=swap" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Roboto|Source+Code+Pro&display=swap" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <main id="app">
+    <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="//browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    {{{body}}}
+  </main>
+  <div class="container-fluid">
+  {{> footer }}
+  </div>  
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/monokai-sublime.min.css" type="text/css">
+  <link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/monokai-sublime.min.css" rel="stylesheet" type="text/css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+  <!-- <script src="https://{{project_name}}.glitch.me/js/helpers.js"></script> -->
+  <script src="https://{{project_name}}.glitch.me/js/lazy-load-images.js"></script>
+  <script src="https://{{project_name}}.glitch.me/js/scripts.js"></script>
+  <script src="https://{{project_name}}.glitch.me/js/tweets.js"></script>
+  {{> statcounter sc_project=sc_project sc_security=sc_security}}  
+  </body>
+</html>
