@@ -20,7 +20,7 @@ router.all( '/', function( req, res ) {
     isAllowed = true;
   }
   
-  if ( isAllowed ){
+  if ( !origin || isAllowed ){
     res.set( {
       'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
