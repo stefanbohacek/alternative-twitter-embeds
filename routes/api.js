@@ -7,15 +7,14 @@ const express = require( 'express' ),
 
 router.all( '/', function( req, res ) {
   // console.log( req.query );
-  let data = [], isAllowed = false, origin = '*';
-
+  let data = [], isAllowed = false;
+  const origin = req.headers.origin;
+  
   if ( process.env.ALLOWED_URLS ){
     const allowedUrls = process.env.ALLOWED_URLS.split( ',' );
-    const host = req.get( 'host' );
-
-    if ( allowedUrls.indexOf( host ) > -1 ){
+    
+    if ( allowedUrls.indexOf( origin ) > -1 ){
       isAllowed = true;
-      origin = host;
     }
   } else {
     isAllowed = true;
