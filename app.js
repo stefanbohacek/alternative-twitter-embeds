@@ -64,6 +64,7 @@ app.set('view engine', 'handlebars');
 
 app.use('/', require('./routes/index.js'))
 app.use('/api', require('./routes/api.js'))
+app.use('/proxy', require('./routes/proxy.js'))
 
 app.get('/js/helpers.js', function (req, res) {
   res.sendFile(path.join(__dirname + '/helpers/general.js'));
