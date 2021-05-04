@@ -29,12 +29,6 @@ app.use( bodyParser.urlencoded( {
 
 app.use( bodyParser.json() );
 
-
-/*
-There is a bug in browserify-replace where only the first instance of each string gets replaced.
-https://github.com/rse/browserify-replace/pull/3
-*/
-
 app.use('/js/', [
   function( req, res, next ){
     // console.log( res );
@@ -48,8 +42,7 @@ app.use('/js/', [
                 replace: [
                     { from: /CONFIG_USE_API/, to: 'true' },
                     { from: /CONFIG_SHOW_METRICS/, to: 'true' },
-                    { from: /CONFIG_AJAX_URL/, to: `https://${ process.env.PROJECT_DOMAIN }.glitch.me` },
-                    { from: /CONFIG_AJAX_URL2/, to: `https://${ process.env.PROJECT_DOMAIN }.glitch.me` }
+                    { from: /CONFIG_AJAX_URL/, to: `https://${ process.env.PROJECT_DOMAIN }.glitch.me` }
                 ]
             }
         ]
