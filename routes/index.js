@@ -8,8 +8,7 @@ const express = require( 'express' ),
 router.all( '/', function( req, res ) {
   res.render( '../views/home.handlebars', {
     project_name: process.env.PROJECT_DOMAIN,
-    sc_project: process.env.SC_PROJECT,
-    sc_security: process.env.SC_SECURITY,      
+    header_scripts: process.env.HEADER_SCRIPTS,
     timestamp: Date.now()
   } );
 } );
