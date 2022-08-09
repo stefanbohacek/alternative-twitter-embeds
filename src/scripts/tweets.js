@@ -10,7 +10,7 @@ const ftfHelpers = {
       document.addEventListener("DOMContentLoaded", fn);
     }
   },
-  fetchTweetData(tweetIds, cb, done) {
+  fetchTweetData: (tweetIds, cb, done) => {
     done =
       done ||
       function () {
@@ -36,7 +36,7 @@ const ftfHelpers = {
       })
       .then(done);
   },
-  fetchSiteData(url, cb, done) {
+  fetchSiteData: (url, cb, done) => {
     done =
       done ||
       function () {
@@ -62,7 +62,7 @@ const ftfHelpers = {
       })
       .then(done);
   },
-  dispatchEvent(eventName) {
+  dispatchEvent: (eventName) => {
     const event = new Event(eventName);
     document.dispatchEvent(event);
   },
