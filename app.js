@@ -13,7 +13,6 @@ const util = require('util'),
 app.use(compression());
 
 app.use(sassMiddleware({
-  // debug: true,
   src: __dirname + '/src',
   dest: path.join(__dirname, 'public'),
   outputStyle: 'compressed'
@@ -29,10 +28,14 @@ app.use(bodyParser.json());
 
 const config = {};
 
-if (typeof process.env.CONFIG_USE_API !== 'undefined') {
-  config.useApi = process.env.CONFIG_USE_API;
+if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET || !process.env.TWITTER_ACCESS_TOKEN || !process.env.TWITTER_ACCESS_TOKEN_SECRET){
+    config.useApi = false;
 } else {
-  config.useApi = true;
+  if (typeof process.env.CONFIG_USE_API !== 'undefined') {
+    config.useApi = process.env.CONFIG_USE_API;
+  } else {
+    config.useApi = true;
+  }
 }
 
 if (typeof process.env.CONFIG_SHOW_METRICS !== 'undefined') {
@@ -40,7 +43,6 @@ if (typeof process.env.CONFIG_SHOW_METRICS !== 'undefined') {
 } else {
   config.showMetrics = true;
 }
-
 
 app.use('/js/', [
   (req, res, next) => {
