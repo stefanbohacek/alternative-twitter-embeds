@@ -18,7 +18,7 @@ You can then open your project to see how to add necessary `style` and `script` 
 
 Be sure to remove any `script` tags from the [embed code that Twitter gives you](https://help.twitter.com/en/using-twitter/how-to-embed-a-tweet).
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +34,7 @@ Be sure to remove any `script` tags from the [embed code that Twitter gives you]
 
 If you're using Bootstrap v4 on your site, you can load an alternative slimmed down stylesheet.
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +69,7 @@ Need help or want to share feedback or suggestions? Feel free to reach out [via 
 Use the `tembeds_tweets_processed` event.
 
 
-```
+```js
 document.addEventListener('tembeds_tweets_processed', () => {
   const tweets = document.querySelectorAll('.twitter-tweet');
   console.log('tweets are ready', tweets);
@@ -79,8 +79,8 @@ document.addEventListener('tembeds_tweets_processed', () => {
 Here's an example using jQuery.
 
 
-```
-$( document ).on('tembeds_tweets_processed', () => {
+```js
+$(document).on('tembeds_tweets_processed', () => {
   const $tweets = $('.twitter-tweet');
   console.log('tweets are ready', $tweets);
 });
