@@ -1,5 +1,7 @@
-document.addEventListener( 'DOMContentLoaded', function(event){
-  document.querySelectorAll( 'pre code' ).forEach( function( block ){
-    hljs.highlightBlock( block );
+/* global hljs */
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  document.querySelectorAll("pre code").forEach((block) => {
+    hljs.highlightBlock(block);
   });
 });
