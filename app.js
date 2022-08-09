@@ -27,6 +27,21 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
+const config = {};
+
+if (typeof process.env.CONFIG_USE_API !== 'undefined') {
+  config.useApi = process.env.CONFIG_USE_API;
+} else {
+  config.useApi = true;
+}
+
+if (typeof process.env.CONFIG_SHOW_METRICS !== 'undefined') {
+  config.showMetrics = process.env.CONFIG_SHOW_METRICS;
+} else {
+  config.showMetrics = true;
+}
+
+
 app.use('/js/', [
   (req, res, next) => {
     next();
@@ -36,8 +51,8 @@ app.use('/js/', [
     transform: [
         [   'browserify-replace', {
                 replace: [
-                    { from: /CONFIG_USE_API/, to: 'true' },
-                    { from: /CONFIG_SHOW_METRICS/, to: 'true' },
+                    { from: /CONFIG_USE_API/, to: config.useApi },
+                    { from: /CONFIG_SHOW_METRICS/, to: config.showMetrics },
                     { from: /CONFIG_AJAX_URL/, to: `https://${ process.env.PROJECT_DOMAIN }.glitch.me` }
                 ]
             }
