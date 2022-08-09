@@ -1,5 +1,4 @@
 const express = require('express'),
-      util = require('util'),
       dataHelper = require(__dirname + '/../helpers/data.js'),
       twitter = require(__dirname + '/../helpers/twitter.js'),
       router = express.Router();

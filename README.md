@@ -70,20 +70,20 @@ Use the `tembeds_tweets_processed` event.
 
 
 ```
-document .addEventListener( 'tembeds_tweets_processed', function(){
-  const tweets = document.querySelectorAll( '.twitter-tweet' );
-  console.log( 'tweets are ready', tweets );    
-} );
+document.addEventListener('tembeds_tweets_processed', () => {
+  const tweets = document.querySelectorAll('.twitter-tweet');
+  console.log('tweets are ready', tweets);
+});
 ```
   
 Here's an example using jQuery.
 
 
 ```
-$( document ).on( 'tembeds_tweets_processed', function(){
-  const $tweets = $( '.twitter-tweet' );
-  console.log( 'tweets are ready', $tweets );
-} );
+$( document ).on('tembeds_tweets_processed', () => {
+  const $tweets = $('.twitter-tweet');
+  console.log('tweets are ready', $tweets);
+});
 ```
 
 ### How do I prevent others from using my app?

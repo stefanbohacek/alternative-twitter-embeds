@@ -46,7 +46,6 @@ const getPageMetadataFn = (pageUrl) => {
             $('meta[name="twitter:image"]').attr("content") ||
             $('meta[property="og:image"]').attr("content") ||
             "";
-
           const siteData = {
             title: pageTitle.trim(),
             description: pageDescription.trim(),
