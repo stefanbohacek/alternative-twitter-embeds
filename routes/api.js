@@ -6,7 +6,6 @@ const express = require( 'express' ),
       router = express.Router();
 
 router.all( '/', function( req, res ) {
-  // console.log( req.query );
   let data = [], isAllowed = false;
   const origin = req.headers.origin;
   

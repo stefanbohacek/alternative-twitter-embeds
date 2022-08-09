@@ -9,7 +9,6 @@ const ftfHelpers = {
         }
     },
     fetchTweetData( tweetIds, cb, done ){
-      // console.log( 'fetchTweetData', tweetIds );
         done = done || function(){ /* noop */ }
 
         fetch( `${altTwitterEmbedsAPI}/api/?tweet_ids=${ tweetIds.join( ',' ) }` , {
@@ -21,7 +20,6 @@ const ftfHelpers = {
             } } )
             .then(function( response ){ return response.json() } )
             .then( function( response ){
-                // console.log( 'fetchTweetData:response', response );
                 cb( response );
 
             } )
@@ -42,7 +40,6 @@ const ftfHelpers = {
             } } )
             .then(function( response ){ return response.json() } )
             .then( function( response ){
-                // console.log( 'fetchSiteData:response', response );
                 cb( response );
 
             } )
@@ -73,8 +70,6 @@ const ftfHelpers = {
             tweet.dataset.tweetId = tweetId;
         }
 
-        // console.log( 'tweet IDs', tweetIds );
-
         if ( tweetIds.length ){
             if ( CONFIG_USE_API ){
                 ftfHelpers.fetchTweetData( tweetIds, function( response ){
@@ -90,15 +85,11 @@ const ftfHelpers = {
                             ftfHelpers.dispatchEvent( 'tembeds_tweets_processed' );
                         }
 
-                        // console.log( 'tweetsWithAttachment', tweetsWithAttachment );
-
                         for ( const tweet of tweetsWithAttachment ) {
                             tweet.dataset.urlAttachmentProcessed = 'true';
 
                             if ( tweet.dataset.urlAttachment.indexOf( 'twitter.com/' ) > -1 ){
-                                // console.log( 'rendering QT...', ftfHelpers.getTweetId( tweet.dataset.urlAttachment ) );
                                 ftfHelpers.fetchTweetData( [ftfHelpers.getTweetId( tweet.dataset.urlAttachment )], function( response ){
-                                        // console.log( 'response', response );
                                    if ( response && response.length ){
                                         response.forEach( function( data ){
                                             ftfHelpers.renderTweet( data, tweet );
@@ -120,20 +111,20 @@ const ftfHelpers = {
                                     let urlAttachmentPreviewHTML = '';
 
                                     if ( data.image ){
-                                        urlAttachmentPreviewHTML += `<img loading="lazy" class="tweet-attachment-site-thumbnail card-img-top" src="${altTwitterEmbedsAPI}/proxy?url=${ data.image }" alt="">`;
+                                        urlAttachmentPreviewHTML += `<a href="${ tweet.dataset.urlAttachment }"><img loading="lazy" class="tweet-attachment-site-thumbnail card-img-top" src="${ data.image }" alt="Preview image for ${tweet.dataset.urlAttachment}"></a>`;
                                     }
 
                                     urlAttachmentPreviewHTML += `<div class="card-body">`;
 
                                     if ( data.title ){
-                                        urlAttachmentPreviewHTML += `<h5 class="card-title">${ data.title }</h5>`;
+                                        urlAttachmentPreviewHTML += `<p class="card-title">${ data.title }</p>`;
                                     }
 
                                     if ( data.description ){
-                                        urlAttachmentPreviewHTML += `<h6 class="card-subtitle mb-2 text-muted">${ data.description }</h6>`;
+                                        urlAttachmentPreviewHTML += `<p class="card-subtitle mb-2 text-muted">${ data.description }</p>`;
                                     }
 
-                                    urlAttachmentPreviewHTML += `<p class="card-text">🔗 <a class="stretched-link text-muted" href="${ tweet.dataset.urlAttachment }" target="_blank">${ tmpAnchor.hostname }</a></p></div>`;
+                                    urlAttachmentPreviewHTML += `<p class="card-text"><a class="stretched-link text-muted" href="${ tweet.dataset.urlAttachment }" target="_blank">${ tmpAnchor.hostname }</a></p></div>`;
 
                                     urlAttachmentPreview.innerHTML = urlAttachmentPreviewHTML;
                                     tweet.querySelector( '.tweet-body-wrapper' ).appendChild( urlAttachmentPreview );
@@ -141,7 +132,6 @@ const ftfHelpers = {
 
                             }, function(){
                                 tweetsWithAttachmentCount--;
-                                // console.log( 'tweetsWithAttachmentCount', tweetsWithAttachmentCount );
                                 if ( tweetsWithAttachmentCount === 0 ){
                                     ftfHelpers.dispatchEvent( 'tembeds_tweets_processed' );
                                 }
@@ -153,8 +143,6 @@ const ftfHelpers = {
             } else {
 
                 for ( const tweet of tweets ) {
-                    // console.log( 'debug:tweet', tweet );
-                    // console.log( 'debug:childNodes', tweet.childNodes );
                     let tweetAttribution = '', tweetDate = '';
 
                     if ( tweet.childNodes && tweet.childNodes.length ){
@@ -176,12 +164,10 @@ const ftfHelpers = {
 
                         const usernames = tweetAttribution.match( /@\w+/gi );
                         let name = '', username = '';
-                        // console.log( 'debug:tweetDate', tweetDate );
 
                         if ( usernames && usernames[0] ){
                             username = usernames[0];
                             const names = tweetAttribution.split( username );
-                            // console.log( 'debug:names', usernames );
 
                             if ( names && names[0] ){
                                 name = names[0].replace( '— ', '' ).replace( ' (', '' );
@@ -208,18 +194,17 @@ const ftfHelpers = {
         }
     },
     renderTweet: function( data, container ){
-        // console.log( 'debug:', data );
         let tweetText = data.text,
             tweetUrl = `https://twitter.com/${ data.users[0].username }/status/${ data.id }`,
             entities = null,
-            verifiedBadge = data.users[0].verified ? '<svg class="tweet-verified-user-badge" viewBox="0 0 24 24" aria-label="Verified account" class="r-13gxpu9 r-4qtqp9 r-yyyyoo r-1xvli5t r-9cviqr r-dnmrzs r-bnwqim r-1plcrui r-lrvibr"><g><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"></path></g></svg>' : '',
+            verifiedBadge = data.users[0].verified ? '<svg role="img" aria-label="Verified user" class="tweet-verified-user-badge" viewBox="0 0 24 24" aria-label="Verified account" class="r-13gxpu9 r-4qtqp9 r-yyyyoo r-1xvli5t r-9cviqr r-dnmrzs r-bnwqim r-1plcrui r-lrvibr"><g><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"></path></g></svg>' : '',
             renderedTweetHTML = `<div class="card w-100">
                 <div class="tweet-body-wrapper card-body pt-4">
                     <div class="card-text">
                         <div class="row no-gutters mb-1">`;
             if ( data.users[0].profile_image_url ){
                 renderedTweetHTML += `<div class="col-2 col-sm-1 col-md-1">
-                    <a href="https://twitter.com/${ data.users[0].username }" class="text-decoration-none"><img loading="lazy" class="rounded-circle border" width="48" height="48" src="${altTwitterEmbedsAPI}/proxy?url=${ data.users[0].profile_image_url }"></a>
+                    <a href="https://twitter.com/${ data.users[0].username }" class="text-decoration-none"><img title="Profile image" alt="Profile image of @${ data.users[0].username }" loading="lazy" class="rounded-circle border" width="48" height="48" src="${ data.users[0].profile_image_url }"></a>
                 </div>`;
             }
             renderedTweetHTML += `<div class="tweet-author ${ data.users[0].profile_image_url ? 'col-9 col-sm-10 col-md-10 pl-2' : 'col-11 col-sm-11 col-md-11' } pb-3">
@@ -227,7 +212,7 @@ const ftfHelpers = {
                 <p class="mb-1 mb-md-2 mt-0"><a class="text-muted text-decoration-none" href="https://twitter.com/${ data.users[0].username }">@${ data.users[0].username }</a></p>
             </div>
             <div class="col-1 text-right">
-                <a href="${ tweetUrl }" target="_blank"><svg style="width: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 97.248c-19.04 8.352-39.328 13.888-60.48 16.576 21.76-12.992 38.368-33.408 46.176-58.016-20.288 12.096-42.688 20.64-66.56 25.408C411.872 60.704 384.416 48 354.464 48c-58.112 0-104.896 47.168-104.896 104.992 0 8.32.704 16.32 2.432 23.936-87.264-4.256-164.48-46.08-216.352-109.792-9.056 15.712-14.368 33.696-14.368 53.056 0 36.352 18.72 68.576 46.624 87.232-16.864-.32-33.408-5.216-47.424-12.928v1.152c0 51.008 36.384 93.376 84.096 103.136-8.544 2.336-17.856 3.456-27.52 3.456-6.72 0-13.504-.384-19.872-1.792 13.6 41.568 52.192 72.128 98.08 73.12-35.712 27.936-81.056 44.768-130.144 44.768-8.608 0-16.864-.384-25.12-1.44C46.496 446.88 101.6 464 161.024 464c193.152 0 298.752-160 298.752-298.688 0-4.64-.16-9.12-.384-13.568 20.832-14.784 38.336-33.248 52.608-54.496z" fill="#03a9f4"/></svg></a>
+                <a href="${ tweetUrl }" target="_blank"><svg role="img" aria-label="Twitter logo" style="width: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 97.248c-19.04 8.352-39.328 13.888-60.48 16.576 21.76-12.992 38.368-33.408 46.176-58.016-20.288 12.096-42.688 20.64-66.56 25.408C411.872 60.704 384.416 48 354.464 48c-58.112 0-104.896 47.168-104.896 104.992 0 8.32.704 16.32 2.432 23.936-87.264-4.256-164.48-46.08-216.352-109.792-9.056 15.712-14.368 33.696-14.368 53.056 0 36.352 18.72 68.576 46.624 87.232-16.864-.32-33.408-5.216-47.424-12.928v1.152c0 51.008 36.384 93.376 84.096 103.136-8.544 2.336-17.856 3.456-27.52 3.456-6.72 0-13.504-.384-19.872-1.792 13.6 41.568 52.192 72.128 98.08 73.12-35.712 27.936-81.056 44.768-130.144 44.768-8.608 0-16.864-.384-25.12-1.44C46.496 446.88 101.6 464 161.024 464c193.152 0 298.752-160 298.752-298.688 0-4.64-.16-9.12-.384-13.568 20.832-14.784 38.336-33.248 52.608-54.496z" fill="#03a9f4"/></svg></a>
             </div>
         </div>
         <div class="tweet-body">`;
@@ -271,12 +256,14 @@ const ftfHelpers = {
                 if ( media.type === 'animated_gif' ){
                     tweetText += `<video class="w-100 mt-0" controls loop><source src="${altTwitterEmbedsAPI}/proxy?url=${ media.preview_image_url.replace( 'pbs.twimg.com/tweet_video_thumb', 'video.twimg.com/tweet_video' ).replace( '.jpg', '.mp4').replace( '.png', '.mp4') }" type="video/mp4"></video>`
                 } else if ( media.type === 'video' ){
-                    /* TODO: Video URLs not being passed in Twitter API v2.
-                       https://twittercommunity.com/t/how-do-i-get-the-video-url-in-recent-search/141896
-                    */
-                    tweetText += `<a class="tweet-video-placeholder" href="${ tweetUrl }" target="_blank"><img loading="lazy" width="${ media.width }" height="${ media.height }" class="w-100 rounded border" src="${altTwitterEmbedsAPI}/proxy?url=${ media.preview_image_url }"></a>`;
+                  if ( media.variants ){
+                      tweetText += `<video class="w-100 mt-0" controls loop><source src="${ media.variants[media.variants.length-1].url }" type="${ media.variants[media.variants.length-1].content_type }"></video>`
+                  } else {
+                      tweetText += `<a class="tweet-video-placeholder" href="${ tweetUrl }" target="_blank"><img alt="Video preview image" loading="lazy" width="${ media.width }" height="${ media.height }" class="w-100 rounded border" src="${ media.preview_image_url }"></a>`;
+                  }                  
+
                } else if ( media.type === 'photo' ){
-                    tweetText += `<a href="${ tweetUrl }" target="_blank"><img loading="lazy" width="${ media.width }" height="${ media.height }" class="w-100 rounded border" src="${altTwitterEmbedsAPI}/proxy?url=${ media.url }"></a>`;
+                    tweetText += `<a href="${ tweetUrl }" target="_blank"><img alt="${ media.alt_text }" loading="lazy" width="${ media.width }" height="${ media.height }" class="w-100 rounded border" src="${ media.url }"></a>`;
                 }
                 tweetText += '</div>';
             } );
@@ -285,7 +272,7 @@ const ftfHelpers = {
         }
 
        if ( data.polls && data.polls.length ){
-            tweetText += '<div class="mt-0 row">';
+            tweetText += '<div class="mt-0">';
 
             data.polls.forEach( function( poll ){
                 if ( poll.options && poll.options.length ){
@@ -298,30 +285,33 @@ const ftfHelpers = {
                     const votesTotal = voteCounts.reduce( function( total, num ){
                         return total + num;
                     } );
+                  
+                    tweetText += `<div id="poll-${poll.id}" class="row" role="list">`;
 
-                    poll.options.forEach( function( option ){
+                    poll.options.forEach( function( option, index ){
                         const votesPortion = option.votes/votesTotal * 100;
                         tweetText += `
-                        <div class="tweet-poll-results col-9" style="height:60px;">
+                        <div class="tweet-poll-results col-9" style="height:60px;" role="listitem">
                             <div class="progress position-relative mt-n4 ${ option.votes === voteCountMax ? ' border border-primary ' : '' }" style="height:30px;">
-                                <div class="progress-bar" 
-                                     role="progressbar" 
-                                     style="width: ${ votesPortion }%" 
-                                     aria-valuenow="${ votesPortion }" 
-                                     aria-valuemin="0" 
-                                     aria-valuemax="100"></div>
-                                <span class="pl-2 d-flex position-absolute w-100" style="font-size: 1rem; line-height: 30px;">${ option.label }</span>
+                                <div class="progress-bar"
+                                     style="width: ${ votesPortion }%"
+                                 ></div>
+                                <span id="poll-${poll.id}-option-${index+1}" class="pl-2 d-flex position-absolute w-100" style="font-size: 1rem; line-height: 30px;">${ option.label }</span>
                             </div>
                         </div>
                         <div class="col-3 mt-n4 text-right" style="height:60px;">
                             <span class="w-100">${ Math.round( option.votes/votesTotal * 100 ) }%</span>
                         </div>`;
                     } );
-                    tweetText += `<div class="col-12 mt-3"><p class="text-muted">${ votesTotal.toLocaleString() } votes</p></div>`;
+
+                    tweetText += `<div class="col-12 mt-3 d-table">
+                        <p class="text-muted">${ votesTotal.toLocaleString() } votes</p>
+                      </div>
+                    </div>`;
                 }
            } );
 
-            tweetText += '</div>';
+          tweetText += '</div>';
         }                    
 
         const tweetDate = new Date( data.created_at ).toLocaleDateString( navigator.language, { month: 'long', year: 'numeric', day: 'numeric' } );
@@ -329,13 +319,13 @@ const ftfHelpers = {
         renderedTweetHTML += tweetText + `</div>
                 </div>
             </div>
-            <div class="card-footer">`;
+            <div class="card-footer pb-4">`;
 
         if ( !container ){
             if ( CONFIG_SHOW_METRICS && data.public_metrics ){
                 renderedTweetHTML += `
-                    <span class="tweet-icon">🔁</span><a class="text-muted" href="${ tweetUrl }" target="_blank">${ data.public_metrics.retweet_count.toLocaleString() }</a> |
-                    <span class="tweet-icon">❤️</span> <a class="text-muted" href="${ tweetUrl }" target="_blank">${ data.public_metrics.like_count.toLocaleString() }</a> | `;
+                    <span class="tweet-icon" role="img" aria-label="Retweets">🔁</span><a class="text-muted" href="${ tweetUrl }" target="_blank">${ data.public_metrics.retweet_count.toLocaleString() }</a> |
+                    <span class="tweet-icon"role="img" aria-label="Likes">❤️</span> <a class="text-muted" href="${ tweetUrl }" target="_blank">${ data.public_metrics.like_count.toLocaleString() }</a> | `;
 
             }
                        
@@ -365,7 +355,6 @@ const ftfHelpers = {
 
         if ( container ){
             const tweetContainer = container.querySelector( '.tweet-body a:last-of-type' );
-            // console.log( 'tweetContainer', tweetContainer );
             if ( tweetContainer ){
               tweetContainer.parentNode.replaceChild( renderedTweet, tweetContainer );
             }
@@ -375,9 +364,6 @@ const ftfHelpers = {
               tweet.parentNode.replaceChild( renderedTweet, tweet );
             }
         }
-       // if ( data.id === '1214098949918875648' ){
-            // console.log( renderedTweet, data );
-        // }
     }
 }
 ftfHelpers.ready( function(){

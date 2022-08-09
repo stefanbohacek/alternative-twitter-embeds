@@ -70,7 +70,7 @@ Use the `tembeds_tweets_processed` event.
 
 
 ```
-el.addEventListener( 'tembeds_tweets_processed', function(){
+document .addEventListener( 'tembeds_tweets_processed', function(){
   const tweets = document.querySelectorAll( '.twitter-tweet' );
   console.log( 'tweets are ready', tweets );    
 } );

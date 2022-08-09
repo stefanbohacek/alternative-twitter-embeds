@@ -83,7 +83,7 @@ const twitter = {
           'expansions': 'author_id,attachments.media_keys,referenced_tweets.id,attachments.poll_ids',
           'tweet.fields': 'attachments,entities,author_id,conversation_id,created_at,id,in_reply_to_user_id,lang,referenced_tweets,source,text,public_metrics',
           'user.fields': 'id,name,username,profile_image_url,verified',
-          'media.fields': 'media_key,preview_image_url,type,url,width,height'
+          'media.fields': 'media_key,preview_image_url,type,url,width,height,alt_text'
         } );
 
         const apiURL = `${twitterApiUrl}/tweets?${ params.toString() }`;
