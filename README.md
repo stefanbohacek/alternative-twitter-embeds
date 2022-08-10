@@ -75,9 +75,8 @@ document.addEventListener('tembeds_tweets_processed', () => {
   console.log('tweets are ready', tweets);
 });
 ```
-  
-Here's an example using jQuery.
 
+Here's an example using jQuery.
 
 ```js
 $(document).on('tembeds_tweets_processed', () => {
@@ -89,7 +88,6 @@ $(document).on('tembeds_tweets_processed', () => {
 ### How do I prevent others from using my app?
 
 Use the `ALLOWED_URLS` variable inside your `.env` file.
-
 
 ```
 ALLOWED_URLS='alternative-twitter-embeds.glitch.me'
