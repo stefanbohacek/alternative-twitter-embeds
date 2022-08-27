@@ -4,7 +4,7 @@
 
 Embed tweets without compromising your users' privacy and your site's performance.
 
-Learn more on [fourtonfish.com](https://fourtonfish.com/project/tweet-embeds-wordpress-plugin/). Also available as a [WordPress plugin](https://wordpress.org/plugins/tembeds/).
+Learn more on [stefanbohacek.com](https://stefanbohacek.com/project/tweet-embeds-wordpress-plugin/). Also available as a [WordPress plugin](https://wordpress.org/plugins/tembeds/).
 
 ## How to use
 
@@ -62,7 +62,7 @@ See a comparison of the PageSpeed performance test results between [this project
 
 ## Questions and tips
 
-Need help or want to share feedback or suggestions? Feel free to reach out [via email](mailto:stefan@fourtonfish.com) or [on Twitter](https://twitter.com/fourtonfish)!
+Need help or want to share feedback or suggestions? Feel free to reach out [via email](mailto:stefan@stefanbohacek.com) or [on Twitter](https://twitter.com/stefanbohacek)!
 
 ### I want to run some code after all tweets are processed
 
