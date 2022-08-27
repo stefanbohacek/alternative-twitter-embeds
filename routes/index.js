@@ -4,7 +4,7 @@ const express = require('express'),
 router.all('/', (req, res) => {
   res.render('../views/home.handlebars', {
     project_name: process.env.PROJECT_DOMAIN,
-    head_scripts: process.env.HEAD_SCRIPTS,
+    footer_scripts: process.env.FOOTER_SCRIPTS,
     timestamp: Date.now()
   });
 });
